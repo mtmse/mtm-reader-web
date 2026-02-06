@@ -1,10 +1,23 @@
-Detta är en enkel Thorium Web‑baserad läsare byggd med Next.js (App Router).
+# MTM Reader Web
+
+Detta projekt är en Thorium Web‑baserad EPUB‑läsare byggd med Next.js (App Router).
+
+## Projektöversikt
+
+Målet är att tillhandahålla en webbaserad EPUB‑läsare med tillgänglighetsfokus och stöd för Thorium Webs UI‑komponenter och läsinställningar.
+
+## Funktioner (översikt)
+
+- Läser EPUB via Readium Web Publication Manifests.
+- Stöd för reflow och fixed layout via Thorium Web.
+- Tillgänglighetsstöd enligt Thorium Web (WCAG 2.2 AA).
+- Teman och läsinställningar via preferences.
 
 ## Om Thorium Web
 
 Detta projekt använder [@edrlab/thorium-web](https://www.npmjs.com/package/@edrlab/thorium-web) – ett npm-paket för att bygga tillgängliga EPUB-läsare i webbläsaren.
 
-## Tech stack
+## Teknikval
 
 - **Next.js 16 (App Router)** – React-framework för routing, SSR/SSG och optimerad bundling
 - **React 19** – UI-komponenter med funktionella komponenter och hooks
@@ -24,6 +37,34 @@ npm run dev
 ```
 
 Öppna http://localhost:3000.
+
+## Utveckling
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
+
+## Projektstruktur
+
+- `app/` – Next.js App Router (routing och API)
+- `src/reader/` – Reader-komponenter (Reader.tsx, ReaderPage.tsx)
+- `src/config/` – Publikationskatalog
+- `public/locales/` – Språkfiler
+- `theme/` – Reader‑tema
+
+## Arkitektur (översikt)
+
+- `ReaderPage` hämtar och validerar manifest via `/api/manifest`.
+- `Reader` kapslar in `StatefulReader` med Thorium Web‑providers.
+- Preferences definieras i `src/reader/preferences.ts`.
+
+## Dokumentation
+
+- [Thorium Web docs (sammanfattning)](docs/thorium-web-docs-summary.md)
+- [Thorium Web docs](docs/thorium-web/)
 
 ## Miljövariabler
 
@@ -47,6 +88,14 @@ Aktiverar `/read/manifest/[manifest]` i produktion.
 MANIFEST_ROUTE_FORCE_ENABLE=true
 ```
 
+### NEXT_PUBLIC_DEFAULT_LANGUAGE
+
+Primärt språk för UI (t.ex. `sv` eller `en`).
+
+```bash
+NEXT_PUBLIC_DEFAULT_LANGUAGE=sv
+```
+
 ## URL-struktur (följer Thoriums rekommendation)
 
 - `/read/[identifier]` används för publikationer som finns i [src/config/publications.ts](src/config/publications.ts).
@@ -56,7 +105,7 @@ MANIFEST_ROUTE_FORCE_ENABLE=true
 
 Använder `ThI18nProvider` från Thorium Web för översättningar.
 
-- **Primärt språk**: Svenska (`sv`), satt i [src/reader/Reader.tsx](src/reader/Reader.tsx)
+- **Primärt språk**: `NEXT_PUBLIC_DEFAULT_LANGUAGE` (default `sv`)
 - **Fallback**: Engelska (`en`)
 - **Översättningsfiler**: `/public/locales/{språk}/{namespace}.json`
   - `thorium-web.json` – UI-texter för läsaren
