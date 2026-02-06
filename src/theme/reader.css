@@ -1,0 +1,64 @@
+﻿.thorium_web_reader_app_main {
+  background: var(--th-theme-background);
+  color: var(--th-theme-text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.6;
+}
+
+.thorium_web_reader_app_topBar,
+.thorium_web_reader_app_bottomBar {
+  background: var(--th-theme-background);
+  border-color: var(--th-theme-subdue);
+  border-style: solid;
+  padding: calc(var(--th-layout-spacing) * 0.75) var(--th-layout-spacing);
+  box-shadow: var(--th-theme-elevate);
+}
+
+.thorium_web_reader_app_topBar {
+  border-width: 0 0 1px 0;
+}
+
+.thorium_web_reader_app_bottomBar {
+  border-width: 1px 0 0 0;
+}
+
+.thorium_web_reader_app_iframeContainer {
+  background: var(--th-theme-background);
+}
+
+.thorium_web_button_icon {
+  border-radius: var(--th-layout-radius);
+  color: var(--th-theme-text);
+}
+
+.thorium_web_button_icon[data-hovered] {
+  background: var(--th-theme-hover);
+  color: var(--th-theme-onHover);
+}
+
+.thorium_web_button_icon[data-focus-visible] {
+  outline: 3px solid var(--th-theme-focus);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.thorium_web_overflow_menu {
+  background: var(--th-theme-background);
+  border: 1px solid var(--th-theme-subdue);
+  box-shadow: var(--th-theme-elevate);
+}
+
+.thorium_web_sheets_popover,
+.thorium_web_sheets_draggable,
+.thorium_web_sheets_fullscreen {
+  background: var(--th-theme-background);
+  color: var(--th-theme-text);
+  border-radius: var(--th-layout-radius);
+  box-shadow: var(--th-theme-elevate);
+}
+
+.thorium_web_reader_pagination_wrapper,
+.thorium_web_reader_progression_wrapper {
+  color: var(--th-theme-text);
+}

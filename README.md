@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Detta är en enkel Thorium Web‑baserad läsare byggd med Next.js (App Router).
 
-## Getting Started
+## Om Thorium Web
 
-First, run the development server:
+Detta projekt använder [@edrlab/thorium-web](https://www.npmjs.com/package/@edrlab/thorium-web) – ett npm-paket för att bygga tillgängliga EPUB-läsare i webbläsaren.
+
+## Tech stack
+
+- **Next.js 16 (App Router)** – React-framework för routing, SSR/SSG och optimerad bundling
+- **React 19** – UI-komponenter med funktionella komponenter och hooks
+- **TypeScript 5** – Strikt typsäkerhet (`strict: true`)
+- **@edrlab/thorium-web** – Kärnan i projektet. EPUB-läsare med:
+  - Inbyggt tillgänglighetsstöd (WCAG 2.2 AA)
+  - Readium TS-Toolkit för EPUB-hantering
+  - Readium CSS för formatering av bokinnehåll (typografi, layout, läsbarhetsinställningar)
+  - `StatefulReader` och alla UI-komponenter
+- **Tailwind CSS 4** – Utility-first CSS för projektspecifik styling
+
+## Snabbstart
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Öppna http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Miljövariabler
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Miljövariabler läses in vid build‑time i Next.js. Vid ändring krävs omstart av dev‑servern.
 
-## Learn More
+### MANIFEST_ALLOWED_DOMAINS
 
-To learn more about Next.js, take a look at the following resources:
+Komma‑separerad lista med tillåtna domäner för manifest‑URL:er.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+MANIFEST_ALLOWED_DOMAINS="publication-server.readium.org"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Använd `*` för att tillåta alla domäner (endast för utveckling).
 
-## Deploy on Vercel
+### MANIFEST_ROUTE_FORCE_ENABLE
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Aktiverar `/read/manifest/[manifest]` i produktion.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+MANIFEST_ROUTE_FORCE_ENABLE=true
+```
+
+## URL-struktur (följer Thoriums rekommendation)
+
+- `/read/[identifier]` används för publikationer som finns i [src/config/publications.ts](src/config/publications.ts).
+- `/read/manifest/[manifest]` är avstängd i produktion om `MANIFEST_ROUTE_FORCE_ENABLE` inte är satt.
+
+## Språkhantering
+
+Använder `ThI18nProvider` från Thorium Web för översättningar.
+
+- **Primärt språk**: Svenska (`sv`), satt i [src/reader/Reader.tsx](src/reader/Reader.tsx)
+- **Fallback**: Engelska (`en`)
+- **Översättningsfiler**: `/public/locales/{språk}/{namespace}.json`
+  - `thorium-web.json` – UI-texter för läsaren
+  - `thorium-shared.json` – Delade översättningar
+
+För dynamiskt språkval baserat på webbläsarinställningar krävs logik för att sätta `lng`-prop i `ThI18nProvider`.
