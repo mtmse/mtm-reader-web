@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@edrlab/thorium-web/core/styles";
 import "@edrlab/thorium-web/epub/styles";
 import "@edrlab/thorium-web/misc/styles";
 import "./globals.css";

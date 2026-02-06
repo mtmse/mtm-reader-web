@@ -45,6 +45,17 @@ npm run dev
 npm run build
 npm run start
 npm run lint
+npm run test:e2e
+npm run test:e2e:ui
+```
+
+## Tester
+
+Projektet använder Playwright för E2E‑tester och `axe-playwright` för grundläggande tillgänglihetstester.
+
+```bash
+npx playwright install
+npm run test:e2e
 ```
 
 ## Projektstruktur
